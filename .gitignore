@@ -1,4 +1,10 @@
-# Dependency directories
+.DS_Store
 node_modules/
-platforms/
-plugins/
+public/bundle.*
+
+# Cordova
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
+!/src-cordova/www/README.md
+src-cordova/config.xml.backup
