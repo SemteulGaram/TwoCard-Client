@@ -19,8 +19,14 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@pyoner/svelte-ts-preprocess": "^1.2.1",
+    "capture-stack-trace": "^1.0.1",
+    "pixi-layers": "^0.2.3",
+    "pixi.js": "^5.2.0",
     "sirv-cli": "^0.4.4",
-    "svelte-cordova": "^1.0.1"
+    "svelte-cordova": "^1.0.1",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "build": "rollup -c",
@@ -39,5 +45,8 @@
     "build-ios": "cross-env CORDOVA_PLATFORM=ios CORDOVA_PROD=true npm run build-ios-subtask",
     "build-ios-subtask": "npm run build && cd src-cordova && cordova build ios",
     "cordova-run-ios": "cd src-cordova && cordova run ios"
-  }
+  },
+  "browserslist": [
+    "cover 99.5%"
+  ]
 }
