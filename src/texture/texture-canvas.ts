@@ -1,6 +1,6 @@
-import PX from '../pixijs-wrapper.js'
+import PX from '../pixijs-wrapper'
 import { Logger, LoggerInterface } from '../utils/logger'
-import { parseInt } from '../utils/misc'
+import { notOnlyParseInt } from '../utils/misc'
 
 export interface TextureOptions {
   baseTextureOptions?: {
@@ -42,22 +42,22 @@ export class TextureCanvas {
       zIndex: -9999, // TODO: min value, need this?
       display: 'none'
     })
-    this.element.width = parseInt(this._opt.width)
-    this.element.height = parseInt(this._opt.height)
+    this.element.width = notOnlyParseInt(this._opt.width)
+    this.element.height = notOnlyParseInt(this._opt.height)
     this.canvasCtx = this.element.getContext('2d')
       || (() => { throw new Error('Unable create CanvasRenderingContext2D') })()
     this.local = {}
   }
 
-  _ensureGetTexture () {
+  _ensureGetTexture (): PIXI.Texture {
     const options = this._opt.textureOptions || {}
     if (!this._texture) {
       if (!options.baseTextureOptions) {
-        options.baseTextureOptions = {
-          mipmap: PIXI.MIPMAP_MODES.POW2
-        }
+        //options.baseTextureOptions = {
+        //  mipmap: PIXI.MIPMAP_MODES.POW2
+        //}
       }
-      this._texture = PX.Texture.from(this.element, options.baseTextureOptions, options.strictMode)
+      this._texture = PX.Texture.from(this.element, options.baseTextureOptions, options.strictMode) as PIXI.Texture
     }
     return this._texture
   }
@@ -67,7 +67,7 @@ export class TextureCanvas {
   }
 
   set width (v: number) {
-    this.element.width = parseInt(v)
+    this.element.width = notOnlyParseInt(v)
   }
 
   get height () {
@@ -75,10 +75,10 @@ export class TextureCanvas {
   }
 
   set height (v: number) {
-    this.element.height = parseInt(v)
+    this.element.height = notOnlyParseInt(v)
   }
 
-  get texture () {
+  get texture (): PIXI.Texture {
     return this._ensureGetTexture()
   }
 

@@ -1,6 +1,6 @@
 /*global navigator*/
 
-const isDev: boolean = ('' + process.env.NODE_ENV).toLowerCase() !== 'production'
+const isDev: boolean = true//('' + process.env.NODE_ENV).toLowerCase() !== 'production'
 
 const hasTouchCapabilities: boolean = !!('ontouchstart' in window && (navigator.maxTouchPoints || navigator.msMaxTouchPoints));
 
@@ -29,10 +29,9 @@ function shortUuid (bufferSize = 4) {
   return str
 }
 
-const _parseInt = parseInt
-function parseInt(num: any): number {
+function notOnlyParseInt(num: any): number {
   // @ts-ignore
-  return _parseInt(num)
+  return parseInt(num)
 }
 
 export {
@@ -42,5 +41,5 @@ export {
   isMobile,
   superMethod,
   shortUuid,
-  parseInt
+  notOnlyParseInt
 }

@@ -4,7 +4,7 @@ import { StageBase } from '../internals'
 import { TextureCanvas } from '../texture/texture-canvas.js'
 import { Game } from '../internals'
 
-class StageIndex extends StageBase {
+export class StageIndex extends StageBase {
   pieces?: {
     sBg: PIXI.Sprite
     sTitle: PIXI.Sprite
@@ -26,7 +26,6 @@ class StageIndex extends StageBase {
 
     return (new Promise((resolve, reject) => {
       that.ctx.loader
-        .add('/static/char/sample/sample.png')
         .load(resolve)
     })).then(() => {
       const tBg = new TextureCanvas({ width: 128, height: 128 })
@@ -125,5 +124,3 @@ class StageIndex extends StageBase {
     pi.sPlayBtn.position.set(u.width, u.height)
   }
 }
-
-export default StageIndex

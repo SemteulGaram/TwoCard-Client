@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js'
-import 'pixi-layers'
 import captureStackTrace from 'capture-stack-trace'
 
 Error.captureStackTrace = Error.captureStackTrace || captureStackTrace
@@ -23,12 +22,15 @@ const PX = {
   TextStyle: PIXI.TextStyle,
   isWebGLSupported: PIXI.utils.isWebGLSupported,
   Container: PIXI.Container,
-  Group: PIXI.display.Group,
-  Layer: PIXI.display.Layer,
-  displayStage: PIXI.display.Stage,
   Point: PIXI.Point,
   Matrix: PIXI.Point,
   Ticker: PIXI.Ticker,
+
+  /*
+  Group: PIXI.display.Group,
+  Layer: PIXI.display.Layer,
+  displayStage: PIXI.display.Stage,
+  */
 }
 
 export default PX

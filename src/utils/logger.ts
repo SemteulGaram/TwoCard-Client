@@ -1,4 +1,4 @@
-import util from 'util'
+import inspect from 'object-inspect'
 
 export const Level = {
   VERBOSE: 0,
@@ -49,7 +49,7 @@ export class Logger {
     if (type >= this.consoleLogLevel) {
       console.log(this._buildTimeString() + '>' + tag + '>'
         + ReverseLevel[type] + '> ' + args.map(v => {
-          return (typeof v === 'object' && v !== null) ? util.inspect(v) : v
+          return (typeof v === 'object' && v !== null) ? inspect(v) : v
         }).join(' ')
       )
     }

@@ -10,8 +10,8 @@ export class StageBase {
   uid: string
   log: LoggerInterface
   unit: any;
-  stage: PIXI.display.Stage;
-  layers: LayerWrapper[];
+  stage: PIXI.Container;
+  layers: PIXI.Container[];
 
   constructor (ctx: Game, name: string) {
     this.name = name
@@ -19,8 +19,8 @@ export class StageBase {
     this.log = Logger.createLogger(this.uid)
 
     this.ctx = ctx
-    this.stage = new PX.displayStage()
-    this.stage.group.enableSort = true
+    this.stage = new PX.Container()
+    //this.stage.group.enableSort = true
     this.unit = {}
     this.layers = []
     this._unitRecalculate()
@@ -63,10 +63,11 @@ export class StageBase {
   }
 
   addLayer (name: string, options: LayerWrapperOptions) {
-    if (this.layers[name]) {
-      throw new Error('addLayer> duplicated layer name(' + name + ')')
-    }
-    this.layers[name] = new LayerWrapper(name, options)
-    this.stage.addChild(this.layers[name].layer)
+    //if (this.layers[name]) {
+    //  throw new Error('addLayer> duplicated layer name(' + name + ')')
+    //}
+    //this.layers[name] = new LayerWrapper(name, options)
+    //this.stage.addChild(this.layers[name].layer)
+    this.layers[name] = new PX.Container()
   }
 }

@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import babel from 'rollup-plugin-babel';
 import pyoner from "@pyoner/svelte-ts-preprocess";
 import typescript from '@rollup/plugin-typescript';
+import builtins from 'rollup-plugin-node-builtins';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,6 +37,7 @@ export default {
 		file: `${publicFolder}/bundle.js`
 	},
 	plugins: [
+		builtins(),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,

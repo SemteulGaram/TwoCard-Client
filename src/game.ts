@@ -1,8 +1,7 @@
 import PX from './pixijs-wrapper'
 import { Logger, LoggerInterface } from './utils/logger'
 import { isDev } from './utils/misc'
-import { StageBase } from './internals'
-import StageIndex from './stage/stage-index'
+import { StageBase, StageIndex } from './internals'
 
 Logger.consoleLogLevel = isDev ? Logger.Level.VERBOSE : Logger.Level.INFO
 
@@ -45,7 +44,9 @@ export class Game {
     PX.say('Project: Not only onecard')
 
     //this.keyboardHandler = new KeyboardHandler(window)
-
+    this.stages = {
+      index: new StageIndex(this)
+    }
     await this.addStage('index', StageIndex)
     //await this.addStage('play', StagePlay)
 
@@ -61,10 +62,10 @@ export class Game {
 
   async addStage (name: string, stageConstructor: typeof StageBase) {
     this.log.d('addStage>', name)
-    if (this.stages[name]) {
-      this.log.e('addStage> Stage duplicated:', name)
-      throw new Error('이미 존재하는 스테이지입니다: ' + name)
-    }
+    //if (this.stages[name]) {
+    //  this.log.e('addStage> Stage duplicated:', name)
+    //  throw new Error('이미 존재하는 스테이지입니다: ' + name)
+    //}
 
     this.stages[name] = new stageConstructor(this, name)
     return this.stages[name].init()
@@ -77,10 +78,10 @@ export class Game {
       throw new Error('존재하지 않는 스테이지입니다: ' + name)
     }
     if (this.stages[this.currentStageName]) {
-      this.stage.onDisattach()
+      //this.stage.onDisattach()
     }
     this.currentStageName = name
-    this.stage.onAttach()
+    //this.stage.onAttach()
   }
 
 
@@ -89,8 +90,6 @@ export class Game {
   }
 
   _animationTick (): void {
-    console.log('TODO: context check', this)
-    this.ticker.stop()
     if (this.stage) {
       const time = Date.now()
       this.stage.onTick(time - this._lastTickAt, time)
