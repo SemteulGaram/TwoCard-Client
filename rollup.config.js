@@ -3,10 +3,6 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
-import pyoner from "@pyoner/svelte-ts-preprocess";
-import typescript from '@rollup/plugin-typescript';
-import builtins from 'rollup-plugin-node-builtins';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -18,18 +14,8 @@ if (process.env.CORDOVA_PLATFORM) {
 
 console.log(`publicFolder is ${publicFolder}`)
 
-const tsEnv = pyoner.createEnv();
-const tsCompilerOptions = pyoner.readConfigFile(tsEnv);
-const tsOpts = {
-  tsEnv,
-  compilerOptions: {
-    ...tsCompilerOptions,
-    allowNonTsExtensions: true
-  }
-};
-
 export default {
-	input: 'src/main.ts',
+	input: 'src/main.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
@@ -37,7 +23,6 @@ export default {
 		file: `${publicFolder}/bundle.js`
 	},
 	plugins: [
-		builtins(),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -45,18 +30,7 @@ export default {
 			// a separate file — better for performance
 			css: css => {
 				css.write(`${publicFolder}/bundle.css`);
-			},
-			preprocess: pyoner.preprocess(tsOpts)
-		}),
-
-		typescript(),
-
-		production && babel({
-			exclude: [
-				// 'node_modules/**',
-				/\/core-js\//,
-			],
-			extensions: ['.svelte', '.js', '.jsx', '.es6', '.es', '.mjs', '.ts']
+			}
 		}),
 
 		// If you have external dependencies installed from
@@ -73,8 +47,7 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser(),
-
+		production && terser()
 	],
 	watch: {
 		clearScreen: false
